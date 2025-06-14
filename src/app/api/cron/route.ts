@@ -1,18 +1,19 @@
 import { NextResponse } from 'next/server';
+import cron from 'node-cron';
+import { runAllJobs } from '@/app/cronRunner';
 
 let counter = 0;
 
 export async function GET() {
   try {
-    counter += 1;
+    await runAllJobs();
     return NextResponse.json({
-      message: 'Hello world!',
-      executionCount: counter,
+      message: '✅ Cron jobs executed manually via API',
     });
   } catch (error) {
-    console.error(error);
+    console.error('❌ API-triggered job run failed:', error);
     return NextResponse.json(
-      { error: 'Error fetching users' },
+      { error: 'Cron jobs execution failed' },
       { status: 500 }
     );
   }

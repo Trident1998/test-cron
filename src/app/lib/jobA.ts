@@ -14,3 +14,7 @@ export async function runJobA() {
     console.error('❌ Job A failed:', error);
   }
 }
+
+export function getACounter() {
+  return counter;
+}
